@@ -1,7 +1,7 @@
 # Личный проект «TaskForce»
 
 * Студент: [Константин Суриков](https://up.htmlacademy.ru/nodejs-2/2/user/598165).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Вохмянин](https://htmlacademy.ru/profile/id530823).
 
 ---
 
