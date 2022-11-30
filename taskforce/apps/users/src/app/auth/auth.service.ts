@@ -29,8 +29,9 @@ export class AuthService {
       name,
       email,
       passwordHash: '',
+      about: '',
       city,
-      birthDate: dayjs(birthDate).toDate(),
+      birthday: dayjs(birthDate).toDate(),
       avatar,
       role: UserRole[role]
     };

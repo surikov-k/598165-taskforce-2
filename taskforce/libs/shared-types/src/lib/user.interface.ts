@@ -1,12 +1,17 @@
-import { UserRole } from './user-role.enum';
+import { City, UserRole } from '@task-force/shared-types';
 
 export interface User {
   _id?: string;
-  email: string;
   name: string;
-  birthDate: Date;
-  city: string;
-  avatar: string;
+  email: string;
   passwordHash: string;
+  birthday: Date;
+  // registered: Date,
+  city: City;
+  about: string;
+  avatar?: string;
+  skills?: string[];
+  phone?: string;
+  telegram?: string;
   role: UserRole;
 }

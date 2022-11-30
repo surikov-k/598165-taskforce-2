@@ -1,0 +1,27 @@
+### Create a new task
+POST http://localhost:3334/api/task/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "address": "Some address",
+  "budget": "100",
+  "clientId": "1",
+  "description": "Some task description",
+  "dueDate": "2022-11-20",
+  "image": "image.jpg",
+  "skills": [
+    "skill-1",
+    "skill-2"
+  ],
+  "title": "New task"
+}
+
+### Get a task by Id
+GET http://localhost:3334/api/task/00c0a47f-1810-4cb4-bd82-545d07b309e5 HTTP/1.1
+
+
+### Get all task
+GET http://localhost:3334/api/task HTTP/1.1
+
+### Delete a task
+DELETE http://localhost:3334/api/task/afae1bb5-a7c3-41c1-bc30-9f22ad068621 HTTP/1.1

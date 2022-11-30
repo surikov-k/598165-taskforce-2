@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { City } from '@task-force/shared-types';
 
 export class CreateUserDto {
   @ApiProperty({ description: 'User name', example: 'Username' })
@@ -11,7 +12,7 @@ export class CreateUserDto {
   public password: string;
 
   @ApiProperty({ description: 'User city', example: 'Moscow' })
-  public city: string;
+  public city: City;
 
   @ApiProperty({ description: 'User birth date', example: '2012-02-22' })
   public birthDate: string;

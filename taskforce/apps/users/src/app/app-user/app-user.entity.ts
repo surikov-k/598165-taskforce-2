@@ -1,4 +1,4 @@
-import { User } from '@task-force/shared-types'
+import { City, User } from '@task-force/shared-types'
 import { UserRole } from '@task-force/shared-types';
 import { compare, genSalt, hash } from 'bcrypt';
 import { SALT_ROUNDS } from './app-user.constants';
@@ -7,8 +7,9 @@ export class AppUserEntity implements User {
   _id?: string;
   email: string;
   name: string;
-  birthDate: Date;
-  city: string;
+  birthday: Date;
+  city: City;
+  about: string;
   avatar: string;
   passwordHash: string;
   role: UserRole;
@@ -36,7 +37,7 @@ export class AppUserEntity implements User {
     this.email = appUser.email;
     this.name = appUser.name;
     this.passwordHash = appUser.passwordHash;
-    this.birthDate = appUser.birthDate;
+    this.birthday = appUser.birthday;
     this.city =appUser.city;
     this.avatar = appUser.avatar;
     this.role = appUser.role;
