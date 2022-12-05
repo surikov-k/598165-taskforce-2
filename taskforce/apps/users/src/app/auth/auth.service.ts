@@ -1,17 +1,20 @@
 import * as dayjs from 'dayjs';
 import { Injectable } from '@nestjs/common';
-import { AppUserMemoryRepository } from '../app-user/app-user-memory.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserRole } from '@task-force/shared-types';
 import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_WRONG_PASSWORD } from './auth.constants';
 import { AppUserEntity } from '../app-user/app-user.entity';
 import { LoginUserDto } from './dto/login-user.dto';
+import { ConfigService } from '@nestjs/config';
+import { AppUserRepository } from '../app-user/app-user.repository';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly appUserRepository: AppUserMemoryRepository
+    private readonly appUserRepository: AppUserRepository,
+    private readonly configService: ConfigService,
   ) {
+    console.log(configService.get<string>('database.name'));
   }
 
   async register(dto: CreateUserDto) {
