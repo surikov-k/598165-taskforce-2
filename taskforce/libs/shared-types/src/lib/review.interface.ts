@@ -1,7 +1,7 @@
 export interface Review {
-  id?: string;
-  userId: string;
-  taskId: string;
+  id?: number;
+  contractorId: string;
+  taskId: number;
   text: string;
   rating: number;
 }

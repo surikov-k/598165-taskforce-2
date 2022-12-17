@@ -4,10 +4,14 @@ Content-Type: application/json
 
 {
   "rating": 5,
-  "taskId": "31e42365-5502-4238-9233-5b2fe994909f",
+  "taskId": 3,
+  "contractorId": "31e42365-5502-4238-9233-5b2fe994909f",
   "text": "Some contractor review"
 }
 
 ### Get a review by ID
-GET http://localhost:3334/api/review/5941971c-750e-4a78-812e-1ea723f7670e HTTP/1.1
+GET http://localhost:3334/api/review/1 HTTP/1.1
+
+### Get a reviews
+GET http://localhost:3334/api/review HTTP/1.1
 

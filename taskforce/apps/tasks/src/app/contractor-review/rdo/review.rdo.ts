@@ -12,10 +12,10 @@ export class ReviewRdo {
 
   @Expose()
   @ApiProperty({
-    description: 'User ID',
+    description: 'Contractor ID',
     example: '31e42365-5502-4238-9233-5b2fe994909f'
   })
-  public userId: string;
+  public contractorId: string;
 
   @Expose()
   @ApiProperty({

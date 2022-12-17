@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { City, User, UserRole } from '@task-force/shared-types';
+import { City, Skill, User, UserRole } from '@task-force/shared-types';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({collection: 'users'})
@@ -43,7 +43,7 @@ export class AppUserModel extends Document implements User {
   public role: UserRole;
 
   @Prop({required: true})
-  public skills: string[];
+  public skills: Skill[];
 
   @Prop()
   public telegram: string;

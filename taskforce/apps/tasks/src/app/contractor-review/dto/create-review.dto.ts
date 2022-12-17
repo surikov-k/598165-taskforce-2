@@ -9,9 +9,15 @@ export class CreateReviewDto {
 
   @ApiProperty({
     description: 'Task ID',
+    example: '51'
+  })
+  taskId: number;
+
+  @ApiProperty({
+    description: 'Contractor ID',
     example: '51599d01-9abe-4794-9345-ec720c70f042'
   })
-  taskId: string;
+  contractorId: string;
 
   @ApiProperty({
     description: 'Review text',

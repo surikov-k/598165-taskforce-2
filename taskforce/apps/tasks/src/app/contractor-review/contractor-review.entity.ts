@@ -1,11 +1,11 @@
 import { Review } from '@task-force/shared-types';
 
 export class ContractorReviewEntity implements Review {
-  id: string;
+  id: number;
   rating: number;
-  taskId: string;
+  taskId: number;
   text: string;
-  userId: string;
+  contractorId: string;
 
   constructor(contractorReview: Review) {
     this.fillEntity(contractorReview);
@@ -20,7 +20,7 @@ export class ContractorReviewEntity implements Review {
     this.rating = contractorReview.rating;
     this.taskId = contractorReview.taskId;
     this.text = contractorReview.text;
-    this.userId = contractorReview.userId;
+    this.contractorId = contractorReview.contractorId;
   }
 
 }

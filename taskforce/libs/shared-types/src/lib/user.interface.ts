@@ -1,4 +1,4 @@
-import { City, UserRole } from '@task-force/shared-types';
+import { City, Skill, UserRole } from '@task-force/shared-types';
 
 export interface User {
   _id?: string;
@@ -6,11 +6,11 @@ export interface User {
   email: string;
   passwordHash: string;
   birthday: Date;
-  // registered: Date,
+  registered?: Date,
   city: City;
   about: string;
   avatar?: string;
-  skills?: string[];
+  skills?: Skill[];
   phone?: string;
   telegram?: string;
   role: UserRole;

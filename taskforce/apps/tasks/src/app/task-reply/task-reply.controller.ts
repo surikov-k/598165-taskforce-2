@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
 import { TaskReplyService } from './task-reply.service';
 import { CreateReplyDto } from './dto/create-reply.dto';
 import { fillObject } from '@task-force/core';
@@ -26,18 +26,33 @@ export class TaskReplyController {
   @ApiResponse({
     type: ReplyRdo,
     status: HttpStatus.OK,
-    description: 'The task reply is found'
+    description: 'Reply found'
   })
   public async show(@Param('id') id: string ){
-    return this.replyService.getOne(id);
+    const replyId = parseInt(id, 10);
+    const reply = await this.replyService.getOne(replyId);
+    return fillObject(ReplyRdo, reply)
+  }
+
+  @Get('/')
+  @ApiResponse({
+    type: [ReplyRdo],
+    status: HttpStatus.OK,
+    description: 'List of replies found'
+  })
+  public async index(){
+    const replies = await this.replyService.getAll();
+    return fillObject(ReplyRdo, replies)
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
-    description: 'The task reply was deleted'
+    description: 'Reply was deleted'
   })
   public async delete(@Param('id') id: string){
-    return this.replyService.delete(id);
+    const replyId = parseInt(id, 10);
+    return this.replyService.delete(replyId);
   }
 }

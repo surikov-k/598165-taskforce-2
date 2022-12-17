@@ -1,7 +1,8 @@
-import { Task, TaskStatus } from '@task-force/shared-types';
+import { Reply, Skill, Tag, Task, TaskStatus } from '@task-force/shared-types';
+import { Entity } from '@task-force/core';
 
-export class WorkTaskEntity implements Task {
-  id: string;
+export class WorkTaskEntity implements Entity<WorkTaskEntity>, Task {
+  id: number;
   address: string;
   budget: number;
   clientId: string;
@@ -10,33 +11,40 @@ export class WorkTaskEntity implements Task {
   description: string;
   dueDate: Date;
   image: string;
-  skills: string[];
+  skills: Skill[];
   status: TaskStatus;
-  tags: string[];
+  tags: Tag[];
   title: string;
+  replies: Reply[];
 
   constructor(workTask: Task) {
     this.fillEntity(workTask)
   }
 
-  public toObject() {
-    return {...this}
+  public toObject(): WorkTaskEntity {
+    return {
+      ...this,
+      skills: this.skills.map(({ id }) => ({ id })),
+      tags: this.tags.map(({ id }) => ({ id })),
+      replies: this.replies.map(({ id }) => ({ id })),
+    }
   }
+
 
   public fillEntity(workTask: Task) {
     this.address = workTask.address;
     this.budget = workTask.budget;
     this.clientId = workTask.clientId;
     this.contractorId = workTask.contractorId;
-    this.created = workTask.created;
     this.description = workTask.description;
-    this.dueDate = workTask.dueDate;
+    this.dueDate = new Date(workTask.dueDate);
     this.id = workTask.id;
     this.image = workTask.image;
-    this.skills = workTask.skills;
+    this.skills = [...workTask.skills];
     this.status = workTask.status;
-    this.tags = workTask.tags;
+    this.tags = [...workTask.tags];
     this.title = workTask.title;
+    this.replies = [...workTask.replies];
   }
 
   changeStatus(status: TaskStatus) {

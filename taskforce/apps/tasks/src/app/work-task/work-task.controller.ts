@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
 import { WorkTaskService } from './work-task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { fillObject } from '@task-force/core';
@@ -10,8 +10,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 export class WorkTaskController {
   constructor(
     private readonly workTaskService: WorkTaskService
-  ) {
-  }
+  ) {}
 
   @Post()
   @ApiResponse({
@@ -41,16 +40,19 @@ export class WorkTaskController {
     description: 'The task is found'
   })
   public async show(@Param('id') id: string) {
-    const task = await this.workTaskService.getOne(id);
+    const taskId = parseInt(id, 10)
+    const task = await this.workTaskService.getOne(taskId);
     return fillObject(TaskRdo, task)
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
     description: 'The task was deleted'
   })
   public async delete(@Param('id') id: string) {
-    await this.workTaskService.delete(id);
+    const taskId = parseInt(id, 10);
+    await this.workTaskService.delete(taskId);
   }
 }

@@ -3,15 +3,15 @@ import { Reply } from '@task-force/shared-types';
 export class TaskReplyEntity implements Reply {
   budget: number;
   comment: string;
-  id;
-  taskId: string;
+  id: number;
+  taskId: number;
   userId: string;
 
   constructor(taskReply: Reply) {
     this.fillEntity(taskReply);
   }
 
-  public toObject() {
+  public toObject(): TaskReplyEntity {
     return {...this}
   }
 

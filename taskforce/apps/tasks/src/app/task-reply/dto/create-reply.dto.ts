@@ -15,9 +15,9 @@ export class CreateReplyDto  {
 
   @ApiProperty({
     description: 'Task ID',
-    example: '51599d01-9abe-4794-9345-ec720c70f042'
+    example: '5'
   })
-  taskId: string;
+  taskId: number;
 
   @ApiProperty({
     description: 'User ID',

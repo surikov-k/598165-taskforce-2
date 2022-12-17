@@ -1,17 +1,18 @@
-import { TaskStatus } from '@task-force/shared-types';
+import { Reply, Skill, Tag, TaskStatus } from '@task-force/shared-types';
 
 export interface Task {
-  id?: string;
+  id?: number;
   clientId: string;
-  contractorId: string;
+  contractorId?: string;
   title: string;
   description: string;
-  skills: string[];
-  dueDate: Date;
-  budget?: number
-  image?: string,
-  address?: string,
-  tags?: string[],
-  created: Date,
-  status: TaskStatus;
+  skills?: Skill[];
+  dueDate?: Date;
+  budget?: number;
+  image?: string;
+  address?: string;
+  tags?: Tag[];
+  created?: Date;
+  status?: TaskStatus;
+  replies?: Reply[];
 }

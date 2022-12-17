@@ -1,6 +1,7 @@
-import {  TaskStatus } from '@task-force/shared-types';
+import { TaskStatus } from '@task-force/shared-types';
 import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { ReplyRdo } from '../../task-reply/rdo/reply.rdo';
 
 export class TaskRdo {
   @ApiProperty({
@@ -54,7 +55,7 @@ export class TaskRdo {
 
   @ApiProperty({
     description: 'Task ID',
-    example: '31e42365-5502-4238-9233-5b2fe994909f'
+    example: '1'
   })
   @Expose()
   id: string;
@@ -78,6 +79,13 @@ export class TaskRdo {
   })
   @Expose()
   tags: string[];
+
+  @ApiProperty({
+    description: 'Task replies',
+    example: ['Уборка']
+  })
+  @Expose()
+  replies: ReplyRdo[];
 
   @ApiProperty({
     description: 'The essence of the task',

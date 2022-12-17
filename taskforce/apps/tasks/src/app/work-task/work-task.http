@@ -4,20 +4,18 @@ Content-Type: application/json
 
 {
   "address": "Some address",
-  "budget": "100",
+  "budget": 100,
   "clientId": "1",
   "description": "Some task description",
   "dueDate": "2022-11-20",
   "image": "image.jpg",
-  "skills": [
-    "skill-1",
-    "skill-2"
-  ],
+  "skills": [1],
+  "tags": [1],
   "title": "New task"
 }
 
 ### Get a task by Id
-GET http://localhost:3334/api/task/39da85e6-e82b-48e1-9fb5-780e3130a1d4 HTTP/1.1
+GET http://localhost:3334/api/task/10 HTTP/1.1
 
 
 ### Get all task

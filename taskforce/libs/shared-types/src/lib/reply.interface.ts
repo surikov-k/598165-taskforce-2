@@ -1,9 +1,7 @@
-import { Task, User } from '@task-force/shared-types';
-
 export interface Reply {
-  id?: string;
+  id?: number;
   userId: string;
-  taskId: string;
+  taskId: number;
   comment: string;
   budget: number;
 }

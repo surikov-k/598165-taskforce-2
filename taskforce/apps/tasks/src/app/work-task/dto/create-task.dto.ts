@@ -39,9 +39,15 @@ export class CreateTaskDto {
 
   @ApiProperty({
     description: 'Task skills',
-    example: ['Уборка']
+    example: [1]
   })
-  skills: string[];
+  skills: number[];
+
+  @ApiProperty({
+    description: 'Task tags',
+    example: [1]
+  })
+  tags: number[];
 
   @ApiProperty({
     description: 'The essence of the task',

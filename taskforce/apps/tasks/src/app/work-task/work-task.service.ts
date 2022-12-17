@@ -1,63 +1,44 @@
 import { Injectable } from '@nestjs/common';
-import { WorkTaskMemoryRepository } from './work-task-memory.repository';
 import { CreateTaskDto } from './dto/create-task.dto';
-import * as dayjs from 'dayjs';
 import { WorkTaskEntity } from './work-task.entity';
 import { TaskStatus } from '@task-force/shared-types';
 import { TASK_DOESNT_EXISTS } from './work-taks.constants';
+import { WorkTaskRepository } from './work-task.repository';
+import { TaskSkillRepository } from '../task-skill/task-skill.repository';
+import { TaskTagRepository } from '../task-tag/task-tag.repository';
 
 @Injectable()
 export class WorkTaskService {
   constructor(
-    private readonly workTaskRepository: WorkTaskMemoryRepository,
+    private readonly workTaskRepository: WorkTaskRepository,
+    private readonly taskSkillRepository: TaskSkillRepository,
+    private readonly taskTagRepository: TaskTagRepository,
   ) {}
 
   public async create(dto: CreateTaskDto) {
-    const {address,
-      budget,
-      clientId,
-      description,
-      dueDate,
-      image,
-      skills,
-      title} = dto;
+    const skills = dto.skills.length === 0 ? [] : await this.taskSkillRepository.find(dto.skills);
+    const tags =  dto.tags.length === 0 ? [] : await this.taskTagRepository.find(dto.tags);
+   const taskEntity = new WorkTaskEntity({
+     ...dto,
+     dueDate: new Date(dto.dueDate),
+     skills,
+     tags,
+     replies: []
+   })
 
-    const workTask = {
-      address,
-      budget,
-      clientId,
-      description,
-      dueDate : dayjs(dueDate).toDate(),
-      contractorId: null,
-      status: TaskStatus.New,
-      created: dayjs().toDate(),
-      image,
-      skills,
-      title,
-    }
-
-    const workTaskEntity = new WorkTaskEntity(workTask)
-    return this.workTaskRepository.create(workTaskEntity);
+    return this.workTaskRepository.create(taskEntity);
   }
 
-  public async getOne(id: string) {
+  public async getOne(id: number) {
     return this.workTaskRepository.findById(id);
   }
 
   public async getAll() {
-    return this.workTaskRepository.findAll();
+    return this.workTaskRepository.find();
   }
 
-  public async getAllByClient(clientId: string) {
-    return this.workTaskRepository.findByClient(clientId);
-  }
-
-  public async getAllByContractor(contractorId: string) {
-    return this.workTaskRepository.findByContractor(contractorId);
-  }
-
-  public async changeStatus(taskId: string, status: TaskStatus) {
-    const task = await this.workTaskRepository.findById(taskId);
+  public async changeStatus(id: number, status: TaskStatus) {
+    const task = await this.workTaskRepository.findById(id);
 
     if (!task) {
       throw new Error(TASK_DOESNT_EXISTS);
@@ -67,11 +48,11 @@ export class WorkTaskService {
 
     taskEntity.changeStatus(status);
 
-    return this.workTaskRepository.update(taskId,taskEntity)
+    return this.workTaskRepository.update(id,taskEntity)
   }
 
-  public async delete(taskId: string) {
-    return this.workTaskRepository.destroy(taskId);
+  public async delete(id: number) {
+    return this.workTaskRepository.destroy(id);
   }
 
 }

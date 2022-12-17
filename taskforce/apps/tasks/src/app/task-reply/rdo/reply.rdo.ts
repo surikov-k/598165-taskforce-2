@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class ReplyRdo {
   @ApiProperty({
     description: 'Reply ID',
-    example: '5d77e338-a4c0-47f9-ab5f-08c62ed7909e'
+    example: '5'
   })
   @Expose()
   public id: string;
@@ -18,7 +18,7 @@ export class ReplyRdo {
 
   @ApiProperty({
     description: 'Task ID',
-    example: '51599d01-9abe-4794-9345-ec720c70f042'
+    example: '51'
   })
   @Expose()
   public taskId: string;

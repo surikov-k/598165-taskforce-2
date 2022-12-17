@@ -1,18 +1,16 @@
 import { Module } from '@nestjs/common';
-import { ContractorReviewMemoryRepository } from './contractor-review-memory.repository';
 import { ContractorReviewController } from './contractor-review.controller';
 import { ContractorReviewService } from './contractor-review.service';
-import { WorkTaskMemoryRepository } from '../work-task/work-task-memory.repository';
+import { ContractorReviewRepository } from './contractor-review.repository';
 
 
 @Module({
   controllers: [ContractorReviewController],
   providers: [
     ContractorReviewService,
-    ContractorReviewMemoryRepository,
-    WorkTaskMemoryRepository
+    ContractorReviewRepository,
   ],
-  exports: [ContractorReviewMemoryRepository],
+  exports: [ContractorReviewRepository],
 })
 export class ContractorReviewModule {
 }

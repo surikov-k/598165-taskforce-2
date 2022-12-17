@@ -5,12 +5,15 @@ Content-Type: application/json
 {
   "budget": 100,
   "comment": "Reply to the task",
-  "taskId": "some-task-id",
-  "userId": "some-user-id"
+  "taskId": 10,
+  "userId": "638dac5ca3a0dafd519c1829"
 }
 
 ### Get a reply by ID
-GET http://localhost:3334/api/reply/51599d01-9abe-4794-9345-ec720c70f042 HTTP/1.1
+GET http://localhost:3334/api/reply/1 HTTP/1.1
+
+### Get all replies
+GET http://localhost:3334/api/reply HTTP/1.1
 
 ### Delete a reply by ID
-DELETE http://localhost:3334/api/reply/51599d01-9abe-4794-9345-ec720c70f042 HTTP/1.1
+DELETE http://localhost:3334/api/reply/3 HTTP/1.1
