@@ -38,13 +38,13 @@ model Task {
 
 model Skill {
   id    Int    @id @default(autoincrement())
-  name  String
+  name  String @unique
   tasks Task[]
 }
 
 model Tag {
   id    Int    @id @default(autoincrement())
-  name  String
+  name  String @unique
   tasks Task[]
 }
 

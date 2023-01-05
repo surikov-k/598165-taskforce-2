@@ -3,7 +3,6 @@ import { TaskSkillRepository } from './task-skill.repository';
 import { CreateSkillDto } from './dto/create-skill.dto';
 import { Skill } from '@task-force/shared-types';
 import { TaskSkillEntity } from './task-skill.entity';
-import { UpdateSkillDto } from './dto/update-skill.dto';
 
 @Injectable()
 export class TaskSkillService {
@@ -22,11 +21,11 @@ export class TaskSkillService {
     return this.taskSkillRepository.findById(id);
   }
 
-  public async getSkills():Promise<Skill[]> {
-    return this.taskSkillRepository.find();
+  public async getSkills(skillsId: number[]): Promise<Skill[]> {
+    return this.taskSkillRepository.find(skillsId);
   }
 
-  public async updateSkill(id: number, dto: UpdateSkillDto): Promise<Skill> {
+  public async updateSkill(id: number, dto: CreateSkillDto): Promise<Skill> {
     return this.taskSkillRepository.update(id, new TaskSkillEntity(dto));
   }
 }

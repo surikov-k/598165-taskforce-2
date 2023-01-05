@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
   "budget": 100,
-  "comment": "Reply to the task",
-  "taskId": 10,
+  "comment": "The visitor hurts",
+  "taskId": 122,
   "userId": "638dac5ca3a0dafd519c1829"
 }
 

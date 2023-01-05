@@ -7,11 +7,11 @@ export class ReplyRdo {
     example: '5'
   })
   @Expose()
-  public id: string;
+  public id: number;
 
   @ApiProperty({
     description: 'User ID',
-    example: '31e42365-5502-4238-9233-5b2fe994909f'
+    example: '638dac5ca3a0dafd519c1829'
   })
   @Expose()
   public userId: string;
@@ -21,7 +21,7 @@ export class ReplyRdo {
     example: '51'
   })
   @Expose()
-  public taskId: string;
+  public taskId: number;
 
   @ApiProperty({
     description: 'A text of the task reply',

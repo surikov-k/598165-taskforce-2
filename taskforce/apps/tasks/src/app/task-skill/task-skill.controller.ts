@@ -1,9 +1,8 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query } from '@nestjs/common';
 import { TaskSkillService } from './task-skill.service';
 import { fillObject } from '@task-force/core';
 import { SkillRdo } from './rdo/skill.rdo';
 import { CreateSkillDto } from './dto/create-skill.dto';
-import { UpdateSkillDto } from './dto/update-skill.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('skill')
@@ -17,9 +16,8 @@ export class TaskSkillController {
     status: HttpStatus.OK,
     description: 'Skill found'
   })
-  public async show(@Param('id') id: string) {
-    const skillId = parseInt(id, 10);
-    const skill = await this.taskSkillService.getSkill(skillId);
+  public async show(@Param('id') id: number) {
+    const skill = await this.taskSkillService.getSkill(id);
     return fillObject(SkillRdo, skill);
   }
 
@@ -29,8 +27,9 @@ export class TaskSkillController {
     status: HttpStatus.OK,
     description: 'List of skills found'
   })
-  public async index() {
-    const skills = await this.taskSkillService.getSkills();
+  public async index(@Query('list') query: string) {
+    const skillIds =  query ? query.split(',').map((it) => +it) : []
+    const skills = await this.taskSkillService.getSkills(skillIds);
     return fillObject(SkillRdo, skills);
   }
 
@@ -50,9 +49,8 @@ export class TaskSkillController {
     status: HttpStatus.NO_CONTENT,
     description: 'Skill deleted'
   })
-  public async destroy(@Param('id') id: string) {
-    const skillId = parseInt(id, 10);
-    await this.taskSkillService.deleteSkill(skillId);
+  public async destroy(@Param('id') id: number) {
+    await this.taskSkillService.deleteSkill(id);
   }
 
   @Patch('/:id')
@@ -61,9 +59,8 @@ export class TaskSkillController {
     status: HttpStatus.OK,
     description: 'Skill updated'
   })
-  public async update(@Param('id') id: string, @Body() dto: UpdateSkillDto){
-    const skillId = parseInt(id, 10);
-    const skill = await this.taskSkillService.updateSkill(skillId, dto);
+  public async update(@Param('id') id: number, @Body() dto: CreateSkillDto){
+    const skill = await this.taskSkillService.updateSkill(id, dto);
     return fillObject(SkillRdo, skill);
   }
 }

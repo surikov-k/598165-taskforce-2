@@ -31,11 +31,4 @@ export class TaskReplyRepository implements CRUDRepository<TaskReplyEntity, numb
       }
     })
   }
-
-  public async update(id: number, item: TaskReplyEntity): Promise<Reply> {
-    return this.prisma.reply.update({
-      where: {id},
-      data: {...item.toObject(), id}
-    });
-  }
 }

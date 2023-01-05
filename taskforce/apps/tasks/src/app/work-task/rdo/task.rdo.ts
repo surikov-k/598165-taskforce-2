@@ -58,7 +58,7 @@ export class TaskRdo {
     example: '1'
   })
   @Expose()
-  id: string;
+  id: number;
 
   @ApiProperty({
     description: 'An image for the task',

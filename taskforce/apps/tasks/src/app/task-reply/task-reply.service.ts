@@ -3,7 +3,6 @@ import { CreateReplyDto } from './dto/create-reply.dto';
 import { TaskReplyEntity } from './task-reply.entity';
 import { TaskReplyRepository } from './task-reply.repository';
 import { Reply } from '@task-force/shared-types';
-import { UpdateReplyDto } from './dto/update-reply.dto';
 
 @Injectable()
 export class TaskReplyService {
@@ -26,9 +25,5 @@ export class TaskReplyService {
 
   public async delete(id: number) {
     await this.taskReplyRepository.destroy(id);
-  }
-
-  public async update(id: number, dto: UpdateReplyDto): Promise<Reply> {
-    return this.taskReplyRepository.update(id, new TaskReplyEntity(dto));
   }
 }

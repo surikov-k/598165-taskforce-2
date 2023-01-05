@@ -28,9 +28,8 @@ export class TaskReplyController {
     status: HttpStatus.OK,
     description: 'Reply found'
   })
-  public async show(@Param('id') id: string ){
-    const replyId = parseInt(id, 10);
-    const reply = await this.replyService.getOne(replyId);
+  public async show(@Param('id') id: number ){
+    const reply = await this.replyService.getOne(id);
     return fillObject(ReplyRdo, reply)
   }
 
@@ -51,8 +50,7 @@ export class TaskReplyController {
     status: HttpStatus.NO_CONTENT,
     description: 'Reply was deleted'
   })
-  public async delete(@Param('id') id: string){
-    const replyId = parseInt(id, 10);
-    return this.replyService.delete(replyId);
+  public async delete(@Param('id') id: number){
+    return this.replyService.delete(id);
   }
 }

@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
+import { IsTagValid } from '../../validators';
 
 export class CreateTagDto {
   @ApiProperty({
@@ -7,5 +8,6 @@ export class CreateTagDto {
     example: 'клининг'
   })
   @Expose()
+  @IsTagValid()
   public name: string;
 }

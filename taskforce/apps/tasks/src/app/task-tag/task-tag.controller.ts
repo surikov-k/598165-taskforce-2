@@ -16,9 +16,8 @@ export class TaskTagController {
     status: HttpStatus.OK,
     description: 'Tag found'
   })
-  public async show(@Param('id') id: string) {
-    const tagId = parseInt(id, 10);
-    const tag = await this.taskTagService.getOne(tagId);
+  public async show(@Param('id') id: number) {
+    const tag = await this.taskTagService.getOne(id);
     return fillObject(TagRdo, tag);
   }
 
@@ -49,9 +48,8 @@ export class TaskTagController {
     status: HttpStatus.NO_CONTENT,
     description: 'Tag deleted'
   })
-  public async destroy(@Param('id') id: string) {
-    const tagId = parseInt(id, 10);
-    await this.taskTagService.delete(tagId)
+  public async destroy(@Param('id') id: number) {
+    await this.taskTagService.delete(id)
   }
 
   @Patch('/:id')
@@ -60,9 +58,8 @@ export class TaskTagController {
     status: HttpStatus.OK,
     description: 'Tag updated'
   })
-  public async update(@Param('id') id: string, @Body() dto: UpdateTagDto) {
-    const tagId = parseInt(id, 10);
-    const tag = await this.taskTagService.update(tagId, dto);
+  public async update(@Param('id') id: number, @Body() dto: UpdateTagDto) {
+    const tag = await this.taskTagService.update(id, dto);
     return fillObject(TagRdo, tag);
   }
 }

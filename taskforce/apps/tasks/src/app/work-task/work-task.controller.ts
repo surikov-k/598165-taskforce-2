@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query } from '@nestjs/common';
 import { WorkTaskService } from './work-task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { fillObject } from '@task-force/core';
 import { TaskRdo } from './rdo/task.rdo';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { TaskQuery } from './query/task.query';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @ApiTags('task')
 @Controller('task')
@@ -28,8 +30,8 @@ export class WorkTaskController {
     status: HttpStatus.OK,
     description: 'The list of tasks is found'
   })
-  public async showAll() {
-    const tasks = await this.workTaskService.getAll();
+  public async index(@Query() query: TaskQuery) {
+    const tasks = await this.workTaskService.getAll(query);
     return tasks.map((task) => fillObject(TaskRdo, task));
   }
 
@@ -39,9 +41,8 @@ export class WorkTaskController {
     status: HttpStatus.OK,
     description: 'The task is found'
   })
-  public async show(@Param('id') id: string) {
-    const taskId = parseInt(id, 10)
-    const task = await this.workTaskService.getOne(taskId);
+  public async show(@Param('id') id: number) {
+    const task = await this.workTaskService.getOne(id);
     return fillObject(TaskRdo, task)
   }
 
@@ -51,8 +52,17 @@ export class WorkTaskController {
     status: HttpStatus.NO_CONTENT,
     description: 'The task was deleted'
   })
-  public async delete(@Param('id') id: string) {
-    const taskId = parseInt(id, 10);
-    await this.workTaskService.delete(taskId);
+  public async delete(@Param('id') id: number) {
+    await this.workTaskService.delete(id);
+  }
+
+  @Patch('/:id')
+  @ApiResponse({
+    type: TaskRdo,
+    description: 'Update task'
+  })
+  public async update(@Param('id') id: number, @Body() dto: UpdateTaskDto) {
+    const task = await this.workTaskService.update(id, dto)
+    return fillObject(TaskRdo, task);
   }
 }

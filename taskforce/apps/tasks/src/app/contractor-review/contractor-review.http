@@ -4,14 +4,14 @@ Content-Type: application/json
 
 {
   "rating": 5,
-  "taskId": 3,
-  "contractorId": "31e42365-5502-4238-9233-5b2fe994909f",
-  "text": "Some contractor review"
+  "taskId": 1,
+  "contractorId": "638dac5ca3a0dafd519c1829",
+  "text": "The material world is full of light. Paradise is not the pure joy of the sinner."
 }
 
 ### Get a review by ID
 GET http://localhost:3334/api/review/1 HTTP/1.1
 
-### Get a reviews
+### Get reviews
 GET http://localhost:3334/api/review HTTP/1.1
 

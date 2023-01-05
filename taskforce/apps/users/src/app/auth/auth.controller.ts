@@ -1,52 +1,112 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { fillObject } from '@task-force/core';
-import { UserRdo } from './rdo/user.rdo';
-import { LoginUserDto } from './dto/login-user.dto';
-import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Request } from 'express';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+
+import { AuthService } from './auth.service';
+import {
+  ChangePasswordDto,
+  CreateUserDto,
+  LoginUserDto,
+  UpdateUserDto,
+} from './dto';
+import { CheckMongoId } from '../pipes';
+import { LoggedUserRdo, TokensRdo, UserRdo } from './rdo';
+import { fillObject } from '@task-force/core';
+import { AccessTokenGuard, RefreshTokenGuard } from './guards';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('register')
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: 'A new user has been successfully created'
+    description: 'A new user has been successfully created',
   })
   async create(@Body() dto: CreateUserDto) {
-    const newUser = await this.authService.register(dto);
-    return fillObject(UserRdo, newUser);
+    return await this.authService.register(dto);
   }
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     type: LoggedUserRdo,
-    status:HttpStatus.OK,
-    description: 'A user has been successfully logged in'
+    status: HttpStatus.OK,
+    description: 'A user has been successfully logged in',
   })
   @ApiResponse({
     status: HttpStatus.UNAUTHORIZED,
-    description: 'Password or login is incorrect'
+    description: 'Password or login is incorrect',
   })
   async login(@Body() dto: LoginUserDto) {
-    const verifiedUser = await this.authService.verifyUser(dto);
-    return fillObject(LoggedUserRdo, verifiedUser);
+    const user = await this.authService.verify(dto);
+    return this.authService.login(user);
   }
 
-  @Get(':id')
+  @UseGuards(AccessTokenGuard)
+  @Get('logout')
+  @HttpCode(HttpStatus.OK)
+  logout(@Req() req: Request) {
+    return this.authService.logout(req.user['sub']);
+  }
+
+  @UseGuards(RefreshTokenGuard)
+  @Get('refresh')
+  @ApiResponse({
+    type: TokensRdo,
+    description: 'Refresh tokens',
+  })
+  refreshToken(@Req() req: Request) {
+    const userId = req.user['sub'];
+    const refreshToken = req.user['refreshToken'];
+    return this.authService.refreshTokens(userId, refreshToken);
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Get('/:id')
   @ApiResponse({
     type: UserRdo,
-    description: 'User is found'
+    description: 'User is found',
   })
-  async show(@Param() id: string) {
-    const existedUser = await this.authService.getUser(id);
+  async show(@Param('id', CheckMongoId) id: string) {
+    const existedUser = await this.authService.get(id);
     return fillObject(UserRdo, existedUser);
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Patch('/profile/:id')
+  @ApiResponse({
+    type: UserRdo,
+    description: 'Update user profile',
+  })
+  public async update(
+    @Param('id', CheckMongoId) id: string,
+    @Body() dto: UpdateUserDto
+  ) {
+    const user = await this.authService.update(id, dto);
+    return fillObject(UserRdo, user);
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Patch('/register')
+  @ApiResponse({
+    type: UserRdo,
+    description: 'Update user password',
+  })
+  async changePassword(@Body() dto: ChangePasswordDto, @Req() req: Request) {
+    const user = await this.authService.changePassword(req.user['sub'], dto);
+    return fillObject(UserRdo, user);
   }
 }

@@ -6,7 +6,7 @@ import { ENV_FILE_PATH } from './app.constants';
 import databaseConfig from '../config/database.config';
 import { validateEnvironments } from './env.validation';
 import { MongooseModule } from '@nestjs/mongoose';
-import { getMongoDbConfig } from '../config/mongodb.config';
+import { getMongoDbConfig, jwtConfig } from '../config';
 
 @Module({
   imports: [
@@ -14,12 +14,12 @@ import { getMongoDbConfig } from '../config/mongodb.config';
       cache: true,
       isGlobal: true,
       envFilePath: ENV_FILE_PATH,
-      load: [databaseConfig],
+      load: [databaseConfig, jwtConfig],
       validate: validateEnvironments,
     }),
     MongooseModule.forRootAsync(getMongoDbConfig()),
     AuthModule,
-    AppUserModule
+    AppUserModule,
   ],
   controllers: [],
   providers: [],

@@ -11,7 +11,7 @@ export class AppUserModel extends Document implements User {
   public avatar: string;
 
   @Prop({required: true})
-  public birthday: Date;
+  public birthDate: Date;
 
   @Prop({
     required: true,
@@ -32,21 +32,29 @@ export class AppUserModel extends Document implements User {
   public passwordHash: string;
 
   @Prop()
+  public refreshTokenHash: string;
+
+  @Prop()
   public phone: string;
 
   @Prop({
     required: true,
     type: String,
     enum: UserRole,
-    default: UserRole.Contractor
   })
   public role: UserRole;
 
-  @Prop({required: true})
+  @Prop()
   public skills: Skill[];
 
   @Prop()
   public telegram: string;
+
+  @Prop({
+    required: true,
+    default: new Date()
+  })
+  registeredAt: Date;
 }
 
 export const AppUserSchema = SchemaFactory.createForClass(AppUserModel);

@@ -10,7 +10,7 @@ export class TaskSkillRepository implements CRUDRepository<TaskSkillEntity, numb
 
   public async create(item: TaskSkillEntity): Promise<Skill> {
     return this.prisma.skill.create({
-      data: {...item.toObject()} // TODO ?
+      data: {...item.toObject()}
     });
   }
 
@@ -23,6 +23,12 @@ export class TaskSkillRepository implements CRUDRepository<TaskSkillEntity, numb
   public async findById(id: number): Promise<Skill | null> {
     return this.prisma.skill.findFirst({
       where: {id}
+    });
+  }
+
+  public async findByName(name: string): Promise<Skill | null> {
+    return this.prisma.skill.findFirst({
+      where: {name}
     });
   }
 

@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTaskDto } from './dto/create-task.dto';
+import { CreateTaskDto, UpdateTaskDto } from './dto';
 import { WorkTaskEntity } from './work-task.entity';
 import { TaskStatus } from '@task-force/shared-types';
 import { TASK_DOESNT_EXISTS } from './work-taks.constants';
 import { WorkTaskRepository } from './work-task.repository';
 import { TaskSkillRepository } from '../task-skill/task-skill.repository';
 import { TaskTagRepository } from '../task-tag/task-tag.repository';
+import { TaskQuery } from './query/task.query';
+import { TaskReplyRepository } from '../task-reply/task-reply.repository';
 
 @Injectable()
 export class WorkTaskService {
@@ -13,18 +15,27 @@ export class WorkTaskService {
     private readonly workTaskRepository: WorkTaskRepository,
     private readonly taskSkillRepository: TaskSkillRepository,
     private readonly taskTagRepository: TaskTagRepository,
+    private readonly taskReplyRepository: TaskReplyRepository
   ) {}
 
   public async create(dto: CreateTaskDto) {
-    const skills = dto.skills.length === 0 ? [] : await this.taskSkillRepository.find(dto.skills);
-    const tags =  dto.tags.length === 0 ? [] : await this.taskTagRepository.find(dto.tags);
-   const taskEntity = new WorkTaskEntity({
-     ...dto,
-     dueDate: new Date(dto.dueDate),
-     skills,
-     tags,
-     replies: []
-   })
+    const skills =
+      dto.skills.length === 0
+        ? []
+        : await this.taskSkillRepository.find(dto.skills);
+
+    const tags =
+      dto.tags.length === 0
+        ? []
+        : await this.taskTagRepository.findByNameOrCreate(dto.tags);
+
+    const taskEntity = new WorkTaskEntity({
+      ...dto,
+      dueDate: new Date(dto.dueDate),
+      skills,
+      tags,
+      replies: [],
+    });
 
     return this.workTaskRepository.create(taskEntity);
   }
@@ -33,8 +44,8 @@ export class WorkTaskService {
     return this.workTaskRepository.findById(id);
   }
 
-  public async getAll() {
-    return this.workTaskRepository.find();
+  public async getAll(query: TaskQuery) {
+    return this.workTaskRepository.find(query);
   }
 
   public async changeStatus(id: number, status: TaskStatus) {
@@ -44,15 +55,43 @@ export class WorkTaskService {
       throw new Error(TASK_DOESNT_EXISTS);
     }
 
-    const taskEntity =await new WorkTaskEntity(task);
+    const taskEntity = await new WorkTaskEntity(task);
 
     taskEntity.changeStatus(status);
 
-    return this.workTaskRepository.update(id,taskEntity)
+    return this.workTaskRepository.update(id, taskEntity);
   }
 
   public async delete(id: number) {
     return this.workTaskRepository.destroy(id);
   }
 
+  public async update(id, dto: UpdateTaskDto) {
+    const task = await this.workTaskRepository.findById(id);
+    let { skills, tags } = task;
+
+    if (dto.skills) {
+      skills =
+        dto.skills.length === 0
+          ? []
+          : await this.taskSkillRepository.find(dto.skills);
+    }
+
+    if (dto.tags) {
+      tags =
+        dto.tags.length === 0
+          ? []
+          : await this.taskTagRepository.findByNameOrCreate(dto.tags);
+    }
+
+    const taskEntity = new WorkTaskEntity({
+      ...task,
+      ...dto,
+      dueDate: dto.dueDate ? new Date(dto.dueDate) : new Date(task.dueDate),
+      skills,
+      tags,
+      replies,
+    });
+    return this.workTaskRepository.update(id, taskEntity);
+  }
 }
