@@ -1,0 +1,9 @@
+From: Me Myself <i@myself.me>
+To: Keks <keks@htmlacademy.local>
+Subject: Hello world
+Date: Fri, 6 Jan 2023 19:00:00
+Content-Type: text/plain; charset=utf8
+
+What happens to us in the future? Do we become assholes or something?
+
+curl smtp://localhost:5025 --mail-from i@myself.me --mail-rcpt keks@htmlacademy.local --upload-file curl-email.txt
