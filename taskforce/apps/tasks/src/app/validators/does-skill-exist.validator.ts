@@ -19,7 +19,7 @@ export class DoesSkillExistConstraint implements ValidatorConstraintInterface {
 }
 
 export function DoesSkillExist(validationOptions?: ValidationOptions) {
-  return function (object: Record<string, unknown>, propertyName: string) {
+  return function (object: unknown, propertyName: string) {
     registerDecorator({
       target: object.constructor,
       propertyName: propertyName,

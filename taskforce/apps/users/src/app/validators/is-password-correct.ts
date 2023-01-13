@@ -35,7 +35,7 @@ export class IsPasswordCorrectConstraint
 }
 
 export function IsPasswordCorrect(validationOptions?: ValidationOptions) {
-  return function (object: Record<string, unknown>, propertyName: string) {
+  return function (object: ChangePasswordDto, propertyName: string) {
     registerDecorator({
       target: object.constructor,
       propertyName: propertyName,

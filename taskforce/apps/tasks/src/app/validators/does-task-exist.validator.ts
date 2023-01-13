@@ -19,7 +19,7 @@ export class DoesTaskExistConstraint implements ValidatorConstraintInterface {
 }
 
 export function DoesTaskExist(validationOptions?: ValidationOptions) {
-  return function (object: Record<string, unknown>, propertyName: string) {
+  return function (object: unknown, propertyName: string) {
     registerDecorator({
       target: object.constructor,
       propertyName: propertyName,

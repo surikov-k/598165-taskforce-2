@@ -1,13 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateTaskDto, UpdateTaskDto } from './dto';
 import { WorkTaskEntity } from './work-task.entity';
-import { TaskStatus } from '@task-force/shared-types';
-import { TASK_DOESNT_EXISTS } from './work-taks.constants';
+import { CommandEvent, TaskStatus } from '@task-force/shared-types';
+import { RABBITMQ_SERVICE, TASK_DOESNT_EXISTS } from './work-taks.constants';
 import { WorkTaskRepository } from './work-task.repository';
 import { TaskSkillRepository } from '../task-skill/task-skill.repository';
 import { TaskTagRepository } from '../task-tag/task-tag.repository';
 import { TaskQuery } from './query/task.query';
 import { TaskReplyRepository } from '../task-reply/task-reply.repository';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class WorkTaskService {
@@ -15,7 +16,8 @@ export class WorkTaskService {
     private readonly workTaskRepository: WorkTaskRepository,
     private readonly taskSkillRepository: TaskSkillRepository,
     private readonly taskTagRepository: TaskTagRepository,
-    private readonly taskReplyRepository: TaskReplyRepository
+    private readonly taskReplyRepository: TaskReplyRepository,
+    @Inject(RABBITMQ_SERVICE) private readonly rabbitClient: ClientProxy
   ) {}
 
   public async create(dto: CreateTaskDto) {
@@ -90,8 +92,13 @@ export class WorkTaskService {
       dueDate: dto.dueDate ? new Date(dto.dueDate) : new Date(task.dueDate),
       skills,
       tags,
-      replies,
+      replies: [],
     });
     return this.workTaskRepository.update(id, taskEntity);
+  }
+
+  public async getNewTasks(date, email) {
+    const tasks = await this.workTaskRepository.getNew(date);
+    this.rabbitClient.emit({ cmd: CommandEvent.GetNewTasks }, { tasks, email });
   }
 }

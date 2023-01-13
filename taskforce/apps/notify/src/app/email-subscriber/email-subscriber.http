@@ -1,0 +1,3 @@
+### Get a mail with new tasks
+http://localhost:3333/api/mail/new HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2JmZmJmOTlhYWIzNmFhNGRiZjY0MjMiLCJlbWFpbCI6InN0YWN5LmZpc2NoZXJAZXhhbXBsZS5jb20iLCJuYW1lIjoiVmluaXRhIEt1aG4iLCJpYXQiOjE2NzM1OTM0NzIsImV4cCI6MTY3MzU5NDM3Mn0.awxGYm27rX4zFoCZysgTve_s2zMonmoSLh26U078vXU

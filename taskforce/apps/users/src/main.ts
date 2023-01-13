@@ -13,7 +13,7 @@ import { useContainer } from 'class-validator';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  useContainer(app.select(AppModule), { fallbackOnErrors: true})
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   const config = new DocumentBuilder()
     .setTitle('«Users» service')
@@ -24,7 +24,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
-  const document  = SwaggerModule.createDocument(app, config) ;
+  const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('spec', app, document);
 
   app.useGlobalPipes(new ValidationPipe());

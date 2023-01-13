@@ -1,0 +1,11 @@
+<p>Hey <b>{{ name }}</b>, these are some new tasks on TaskForce:</p>
+<ul>
+  {{#each tasks}}
+    <li>
+      <h5>{{this.title}}</h5>
+      <p>{{this.description}}</p>
+    </li>
+  {{else}}
+    <p>There aren't any new tasks</p>
+  {{/each}}
+</ul>

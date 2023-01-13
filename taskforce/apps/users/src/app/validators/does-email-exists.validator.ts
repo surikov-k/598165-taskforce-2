@@ -7,6 +7,7 @@ import {
 } from 'class-validator';
 import { Injectable } from '@nestjs/common';
 import { AppUserRepository } from '../app-user/app-user.repository';
+import { CreateUserDto } from '../auth/dto';
 
 @ValidatorConstraint({ async: true })
 @Injectable()
@@ -20,7 +21,7 @@ export class DoesEmailExistConstraint implements ValidatorConstraintInterface {
 }
 
 export function DoesEmailExist(validationOptions?: ValidationOptions) {
-  return function (object: Record<string, unknown>, propertyName: string) {
+  return function (object: CreateUserDto, propertyName: string) {
     registerDecorator({
       target: object.constructor,
       propertyName: propertyName,

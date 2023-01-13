@@ -1,6 +1,7 @@
 import * as dayjs from 'dayjs';
 import {
   ForbiddenException,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -10,22 +11,27 @@ import {
   LoginUserDto,
   UpdateUserDto,
 } from './dto';
-import { JwtPayload, Tokens, User, UserRole } from '@task-force/shared-types';
-import { UserErrorMessage } from './auth.constants';
+import {
+  CommandEvent,
+  JwtPayload,
+  Tokens,
+  User,
+  UserRole,
+} from '@task-force/shared-types';
+import { RABBITMQ_SERVICE, UserErrorMessage } from './auth.constants';
 import { AppUserEntity } from '../app-user/app-user.entity';
 import { ConfigService } from '@nestjs/config';
 import { AppUserRepository } from '../app-user/app-user.repository';
-import { HttpService } from '@nestjs/axios';
 import { JwtService } from '@nestjs/jwt';
-import { firstValueFrom } from 'rxjs';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly appUserRepository: AppUserRepository,
     private readonly configService: ConfigService,
-    private readonly httpService: HttpService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    @Inject(RABBITMQ_SERVICE) private readonly rabbitClient: ClientProxy
   ) {}
 
   public async register(dto: CreateUserDto) {
@@ -51,6 +57,15 @@ export class AuthService {
     await userEntity.setRefreshTokenHash(tokens.refreshToken);
 
     await this.appUserRepository.update(newUser._id, userEntity);
+
+    this.rabbitClient.emit(
+      { cmd: CommandEvent.AddSubscriber },
+      {
+        email: newUser.email,
+        name: newUser.name,
+        userId: newUser._id.toString(),
+      }
+    );
 
     return tokens;
   }
@@ -110,22 +125,12 @@ export class AuthService {
 
   public async update(id: string, dto: UpdateUserDto) {
     const user = await this.appUserRepository.findById(id);
-    let skills;
-
-    if (dto.skills) {
-      const list = dto.skills.join(',');
-
-      const { data } = await firstValueFrom(
-        this.httpService.get(`http://localhost:3334/api/skills?list=${list}`)
-      );
-      skills = data;
-    }
 
     const newDto = {
       ...user,
       ...dto,
       birthDate: dayjs(dto.birthDate).toDate(),
-      skills,
+      skills: [],
     };
     return this.appUserRepository.update(id, new AppUserEntity(newDto));
   }

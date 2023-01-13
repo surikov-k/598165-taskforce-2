@@ -9,3 +9,5 @@ export * from './skill.interface';
 export * from './tag.interface';
 export * from './tokens.type';
 export * from './jwt-payload.type';
+export * from './subscriber.interface';
+export * from './command-event.enum';

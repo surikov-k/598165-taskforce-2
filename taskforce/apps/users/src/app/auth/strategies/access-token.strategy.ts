@@ -27,7 +27,6 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
       name,
       sub,
       role: user.role,
-      test: 'Younglings, younglings gather ’round.',
     };
   }
 }
