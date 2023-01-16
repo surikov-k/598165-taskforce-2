@@ -24,6 +24,8 @@ import { CheckMongoId } from '../pipes';
 import { LoggedUserRdo, TokensRdo, UserRdo } from './rdo';
 import { fillObject } from '@task-force/core';
 import { AccessTokenGuard, RefreshTokenGuard } from './guards';
+import { EventPattern } from '@nestjs/microservices';
+import { CommandEvent } from '@task-force/shared-types';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -108,5 +110,10 @@ export class AuthController {
   async changePassword(@Body() dto: ChangePasswordDto, @Req() req: Request) {
     const user = await this.authService.changePassword(req.user['sub'], dto);
     return fillObject(UserRdo, user);
+  }
+
+  @EventPattern({ cmd: CommandEvent.SaveAvatar })
+  public async saveAvatar({ name, userId }) {
+    return this.authService.saveAvatar(name, userId);
   }
 }

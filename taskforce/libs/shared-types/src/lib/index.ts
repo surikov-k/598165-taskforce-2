@@ -11,3 +11,5 @@ export * from './tokens.type';
 export * from './jwt-payload.type';
 export * from './subscriber.interface';
 export * from './command-event.enum';
+export * from './file.interface';
+export * from './task-file.interface';

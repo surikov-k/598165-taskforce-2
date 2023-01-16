@@ -9,11 +9,19 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
+import { ConfigService } from '@nestjs/config';
+import { getRabbitMqConfig } from './config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
+
+  const configService = app.get<ConfigService>(ConfigService);
+  app.connectMicroservice(getRabbitMqConfig(configService));
+  await app.startAllMicroservices();
+
+  Logger.log(`🚀 Notify service is running!`);
 
   const config = new DocumentBuilder()
     .setTitle('«Users» service')

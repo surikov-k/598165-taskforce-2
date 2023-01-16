@@ -17,7 +17,7 @@ async function bootstrap() {
   app.connectMicroservice(getRabbitMqConfig(configService));
   await app.startAllMicroservices();
 
-  Logger.log(`🚀 Notify service is running`);
+  Logger.log(`🚀 Notify service is running!`);
 
   app.useGlobalPipes(new ValidationPipe());
   const globalPrefix = 'api';

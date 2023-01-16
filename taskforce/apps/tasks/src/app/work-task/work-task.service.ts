@@ -9,6 +9,7 @@ import { TaskTagRepository } from '../task-tag/task-tag.repository';
 import { TaskQuery } from './query/task.query';
 import { TaskReplyRepository } from '../task-reply/task-reply.repository';
 import { ClientProxy } from '@nestjs/microservices';
+import { TaskFileRepository } from '../task-file/task-file.repository';
 
 @Injectable()
 export class WorkTaskService {
@@ -17,6 +18,7 @@ export class WorkTaskService {
     private readonly taskSkillRepository: TaskSkillRepository,
     private readonly taskTagRepository: TaskTagRepository,
     private readonly taskReplyRepository: TaskReplyRepository,
+    private readonly taskFileRepository: TaskFileRepository,
     @Inject(RABBITMQ_SERVICE) private readonly rabbitClient: ClientProxy
   ) {}
 
@@ -37,6 +39,7 @@ export class WorkTaskService {
       skills,
       tags,
       replies: [],
+      files: [],
     });
 
     return this.workTaskRepository.create(taskEntity);
@@ -92,7 +95,6 @@ export class WorkTaskService {
       dueDate: dto.dueDate ? new Date(dto.dueDate) : new Date(task.dueDate),
       skills,
       tags,
-      replies: [],
     });
     return this.workTaskRepository.update(id, taskEntity);
   }

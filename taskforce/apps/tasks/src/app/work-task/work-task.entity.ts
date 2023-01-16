@@ -1,4 +1,11 @@
-import { Reply, Skill, Tag, Task, TaskStatus } from '@task-force/shared-types';
+import {
+  Reply,
+  Skill,
+  Tag,
+  Task,
+  TaskFile,
+  TaskStatus,
+} from '@task-force/shared-types';
 import { Entity } from '@task-force/core';
 
 export class WorkTaskEntity implements Entity<WorkTaskEntity>, Task {
@@ -16,9 +23,10 @@ export class WorkTaskEntity implements Entity<WorkTaskEntity>, Task {
   tags: Tag[];
   title: string;
   replies: Reply[];
+  files: TaskFile[];
 
   constructor(workTask: Task) {
-    this.fillEntity(workTask)
+    this.fillEntity(workTask);
   }
 
   public toObject(): WorkTaskEntity {
@@ -27,9 +35,9 @@ export class WorkTaskEntity implements Entity<WorkTaskEntity>, Task {
       skills: this.skills.map(({ id }) => ({ id })),
       tags: this.tags.map(({ id }) => ({ id })),
       replies: this.replies.map(({ id }) => ({ id })),
-    }
+      files: this.files.map(({ id }) => ({ id })),
+    };
   }
-
 
   public fillEntity(workTask: Task) {
     this.address = workTask.address;
@@ -45,6 +53,7 @@ export class WorkTaskEntity implements Entity<WorkTaskEntity>, Task {
     this.tags = [...workTask.tags];
     this.title = workTask.title;
     this.replies = [...workTask.replies];
+    this.files = [...workTask.files];
   }
 
   changeStatus(status: TaskStatus) {

@@ -34,6 +34,7 @@ model Task {
   created      DateTime   @default(now())
   status       TaskStatus @default(New)
   replies      Reply[]
+  files        File[]
 }
 
 model Skill {
@@ -65,4 +66,11 @@ model Review {
   text    String
   rating  Int
   created DateTime @default(now())
+}
+
+model File {
+  id        Int @id @default(autoincrement())
+  taskId    Int
+  filename  String
+  task    Task     @relation(fields: [taskId], references: [id])
 }

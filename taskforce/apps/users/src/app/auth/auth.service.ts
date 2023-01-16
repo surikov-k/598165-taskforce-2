@@ -1,5 +1,6 @@
 import * as dayjs from 'dayjs';
 import {
+  BadRequestException,
   ForbiddenException,
   Inject,
   Injectable,
@@ -135,6 +136,18 @@ export class AuthService {
     return this.appUserRepository.update(id, new AppUserEntity(newDto));
   }
 
+  public async saveAvatar(filename: string, userId: string) {
+    const user = await this.appUserRepository.findById(userId);
+    if (!user) {
+      throw new BadRequestException('User doesnt exist');
+    }
+    const dto = {
+      ...user,
+      avatar: filename,
+    };
+    return this.appUserRepository.update(userId, new AppUserEntity(dto));
+  }
+
   async refreshTokens(userId: string, refreshToken: string) {
     const user = await this.appUserRepository.findById(userId);
     const userEntity = new AppUserEntity(user);
@@ -175,7 +188,7 @@ export class AuthService {
 
   getJwtPayload(user: User): JwtPayload {
     return {
-      sub: user._id,
+      sub: user._id.toString(),
       email: user.email,
       name: user.name,
     };

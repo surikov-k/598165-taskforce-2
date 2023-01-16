@@ -27,11 +27,15 @@ export class WorkTaskRepository
         tags: {
           connect: [...entityData.tags],
         },
+        files: {
+          connect: [...entityData.files],
+        },
       },
       include: {
         skills: true,
         tags: true,
         replies: true,
+        files: true,
       },
     });
   }
@@ -49,6 +53,7 @@ export class WorkTaskRepository
         replies: true,
         skills: true,
         tags: true,
+        files: true,
       },
     });
   }
@@ -78,6 +83,7 @@ export class WorkTaskRepository
         replies: true,
         skills: true,
         tags: true,
+        files: true,
       },
       orderBy: selectSorting[sort],
       skip: page > 0 ? limit * (page - 1) : undefined,
@@ -120,11 +126,15 @@ export class WorkTaskRepository
         tags: {
           connect: [...entityData.tags],
         },
+        files: {
+          connect: [...entityData.files],
+        },
       },
       include: {
         skills: true,
         tags: true,
         replies: true,
+        files: true,
       },
     });
   }

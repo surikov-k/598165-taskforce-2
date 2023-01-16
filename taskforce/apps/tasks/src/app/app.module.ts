@@ -10,6 +10,7 @@ import { ContractorReviewModule } from './contractor-review/contractor-review.mo
 import { ENV_FILE_PATH } from './app.constants';
 import { rabbitMqOptions } from '../../config';
 import { validateEnvironment } from './env.validation';
+import { TaskFileModule } from './task-file/task-file.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { validateEnvironment } from './env.validation';
     PrismaModule,
     TaskSkillModule,
     TaskTagModule,
+    TaskFileModule,
   ],
   controllers: [],
   providers: [],

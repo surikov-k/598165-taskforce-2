@@ -1,4 +1,10 @@
-import { Reply, Skill, Tag, TaskStatus } from '@task-force/shared-types';
+import {
+  Reply,
+  Skill,
+  Tag,
+  TaskFile,
+  TaskStatus,
+} from '@task-force/shared-types';
 
 export interface Task {
   id?: number;
@@ -15,4 +21,5 @@ export interface Task {
   created?: Date;
   status?: TaskStatus;
   replies?: Reply[];
+  files?: TaskFile[];
 }

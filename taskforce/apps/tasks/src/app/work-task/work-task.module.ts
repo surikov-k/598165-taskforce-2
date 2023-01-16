@@ -10,12 +10,14 @@ import { ClientsModule } from '@nestjs/microservices';
 import { RABBITMQ_SERVICE } from './work-taks.constants';
 import { getRabbitMqConfig } from '../../../config';
 import { ConfigService } from '@nestjs/config';
+import { TaskFileModule } from '../task-file/task-file.module';
 
 @Module({
   imports: [
     TaskReplyModule,
     TaskSkillModule,
     TaskTagModule,
+    TaskFileModule,
     ClientsModule.registerAsync([
       {
         name: RABBITMQ_SERVICE,
