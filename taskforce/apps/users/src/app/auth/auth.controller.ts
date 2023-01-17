@@ -119,7 +119,6 @@ export class AuthController {
 
   @EventPattern({ cmd: CommandEvent.UpdateUserRating })
   public async updateUserRating({ contractorId, newContractorRating }) {
-    console.log('auth.controller.ts', 'updateRating');
     return this.authService.updateRating(contractorId, newContractorRating);
   }
 }

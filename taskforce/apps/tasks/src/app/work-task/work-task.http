@@ -59,10 +59,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2M0ZmU4N
 ### Finish a task
 PATCH http://localhost:3334/api/task/8/done HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2M0ZmU4NjYzNjlhZmVhODQ5YzhlYjgiLCJlbWFpbCI6ImtlcnJpLmR1ZGxleUBleGFtcGxlLmNvbSIsIm5hbWUiOiJHZXJhbGRpbmUgUm9tYWd1ZXJhIiwicm9sZSI6IkNsaWVudCIsImlhdCI6MTY3Mzk0NDMxNiwiZXhwIjoxNjczOTQ1MjE2fQ.7kOnbz-N61RWSPbzAwQRNk3WipJ8e5ogAiUyg3xUkBs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2M0ZmU4NjYzNjlhZmVhODQ5YzhlYjgiLCJlbWFpbCI6ImtlcnJpLmR1ZGxleUBleGFtcGxlLmNvbSIsIm5hbWUiOiJHZXJhbGRpbmUgUm9tYWd1ZXJhIiwicm9sZSI6IkNsaWVudCIsImlhdCI6MTY3Mzk4NTM5NCwiZXhwIjoxNjczOTg2Mjk0fQ.2KPy35MZrMUUjL72qjpX5BAphZvOikl4suyx9lbQmHQ
 
 {
-  "rating": 5,
+  "rating": 4,
   "text": "The material world is full of light. Paradise is not the pure joy of the sinner."
 }
 

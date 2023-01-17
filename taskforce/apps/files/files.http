@@ -1,6 +1,6 @@
 ### Upload a task file
 POST http://localhost:3332/api/upload/task/5 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2MyNjg0Mzc1OTE0MzI3ZjY0YWE4ZjAiLCJlbWFpbCI6InNhbGxpZS5jbGV2ZWxhbmQzQGV4YW1wbGUuY29tIiwibmFtZSI6IkthdGhlcmluYSBQZmFubmVyc3RpbGwiLCJpYXQiOjE2NzM4MTI2MTIsImV4cCI6MTY3MzgxMzUxMn0.uV8_Eh9-3q7D3vMTxkt0mGuzAg0CtRq0_pTB2EZCdx4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2M0ZmU4NjYzNjlhZmVhODQ5YzhlYjgiLCJlbWFpbCI6ImtlcnJpLmR1ZGxleUBleGFtcGxlLmNvbSIsIm5hbWUiOiJHZXJhbGRpbmUgUm9tYWd1ZXJhIiwicm9sZSI6IkNsaWVudCIsImlhdCI6MTY3Mzk4NDQ0MSwiZXhwIjoxNjczOTg1MzQxfQ.nqZtb8VPhIk9UcvAKOUAL9e-w7_45LXHW-VSKM6tUOg
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -11,8 +11,8 @@ Content-Type: image/jpeg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ### Upload an avatar file
-POST http://localhost:3332/api/upload/avatar/63c2684375914327f64aa8f0 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2MyNjg0Mzc1OTE0MzI3ZjY0YWE4ZjAiLCJlbWFpbCI6InNhbGxpZS5jbGV2ZWxhbmQzQGV4YW1wbGUuY29tIiwibmFtZSI6IkthdGhlcmluYSBQZmFubmVyc3RpbGwiLCJpYXQiOjE2NzM4MTI2MTIsImV4cCI6MTY3MzgxMzUxMn0.uV8_Eh9-3q7D3vMTxkt0mGuzAg0CtRq0_pTB2EZCdx4
+POST http://localhost:3332/api/upload/avatar/63c4fe866369afea849c8eb8 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2M0ZmU4NjYzNjlhZmVhODQ5YzhlYjgiLCJlbWFpbCI6ImtlcnJpLmR1ZGxleUBleGFtcGxlLmNvbSIsIm5hbWUiOiJHZXJhbGRpbmUgUm9tYWd1ZXJhIiwicm9sZSI6IkNsaWVudCIsImlhdCI6MTY3Mzk4NTM5NCwiZXhwIjoxNjczOTg2Mjk0fQ.2KPy35MZrMUUjL72qjpX5BAphZvOikl4suyx9lbQmHQ
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -24,4 +24,4 @@ Content-Type: image/jpeg
 
 
 ### Get a file
-GET http://localhost:3332/api/upload/1673717685125.hill.jpg
+GET http://localhost:3332/api/upload/1673984701825.hill.jpg

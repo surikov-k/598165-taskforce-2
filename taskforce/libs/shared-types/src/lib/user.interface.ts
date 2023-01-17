@@ -17,4 +17,5 @@ export interface User {
   phone?: string;
   telegram?: string;
   role: UserRole;
+  rating: number;
 }

@@ -9,8 +9,8 @@ import {
 import { EmailSubscriberRepository } from './email-subscriber.repository';
 import { MailModule } from '../mail/mail.module';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { getJwtConfig, getRabbitMqConfig } from '../../../config';
+import { ConfigService } from '@nestjs/config';
+import { getRabbitMqConfig } from '../../../config';
 import { ClientsModule } from '@nestjs/microservices';
 import { RABBITMQ_SERVICE } from './email-subscriber.constants';
 
@@ -20,11 +20,7 @@ import { RABBITMQ_SERVICE } from './email-subscriber.constants';
       { name: EmailSubscriberModel.name, schema: EmailSubscriberSchema },
     ]),
     MailModule,
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: getJwtConfig,
-    }),
+    JwtModule.register({}),
     ClientsModule.registerAsync([
       {
         name: RABBITMQ_SERVICE,

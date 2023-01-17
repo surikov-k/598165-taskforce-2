@@ -2,7 +2,7 @@ import { Document } from 'mongoose';
 import { City, Skill, User, UserRole } from '@task-force/shared-types';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema({collection: 'users'})
+@Schema({ collection: 'users' })
 export class AppUserModel extends Document implements User {
   @Prop()
   public about: string;
@@ -10,12 +10,15 @@ export class AppUserModel extends Document implements User {
   @Prop()
   public avatar: string;
 
-  @Prop({required: true})
+  @Prop()
+  public rating: number;
+
+  @Prop({ required: true })
   public birthDate: Date;
 
   @Prop({
     required: true,
-    type: String
+    type: String,
   })
   public city: City;
 
@@ -25,10 +28,10 @@ export class AppUserModel extends Document implements User {
   })
   public email: string;
 
-  @Prop({required: true})
+  @Prop({ required: true })
   public name: string;
 
-  @Prop({required: true})
+  @Prop({ required: true })
   public passwordHash: string;
 
   @Prop()
@@ -52,7 +55,7 @@ export class AppUserModel extends Document implements User {
 
   @Prop({
     required: true,
-    default: new Date()
+    default: new Date(),
   })
   registeredAt: Date;
 }

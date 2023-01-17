@@ -1,6 +1,5 @@
 import {
   registerDecorator,
-  ValidationArguments,
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
@@ -14,7 +13,7 @@ import { CreateUserDto } from '../auth/dto';
 export class DoesEmailExistConstraint implements ValidatorConstraintInterface {
   constructor(private readonly appUserRepository: AppUserRepository) {}
 
-  async validate(email: string, args: ValidationArguments): Promise<boolean> {
+  async validate(email: string): Promise<boolean> {
     const user = await this.appUserRepository.findByEmail(email);
     return !user;
   }

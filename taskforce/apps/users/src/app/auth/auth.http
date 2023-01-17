@@ -3,8 +3,8 @@ POST http://localhost:3335/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Geraldine Romaguera",
-  "email": "kerri.dudley@example.com",
+  "name": "Mr. Poopybutthole",
+  "email": "ed.cochran@example.com",
   "password": "123456",
   "city": "Москва",
   "birthDate": "2000-05-05",

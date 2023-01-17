@@ -15,11 +15,11 @@ import { getRabbitMqConfig } from '../config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
+
   const configService = app.get<ConfigService>(ConfigService);
   app.connectMicroservice(getRabbitMqConfig(configService));
   await app.startAllMicroservices();
-
-  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   const config = new DocumentBuilder()
     .setTitle('Tasks service')

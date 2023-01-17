@@ -17,6 +17,7 @@ export class AppUserEntity implements User {
   phone: string;
   telegram: string;
   refreshTokenHash;
+  rating: number;
 
   constructor(appUser: User) {
     this.fillEntity(appUser);
@@ -66,5 +67,6 @@ export class AppUserEntity implements User {
     this.phone = appUser.phone;
     this.telegram = appUser.telegram;
     this.refreshTokenHash = appUser.refreshTokenHash;
+    this.rating = appUser.rating;
   }
 }

@@ -19,7 +19,11 @@ import {
   User,
   UserRole,
 } from '@task-force/shared-types';
-import { RABBITMQ_SERVICE, UserErrorMessage } from './auth.constants';
+import {
+  JWTokenTime,
+  RABBITMQ_SERVICE,
+  UserErrorMessage,
+} from './auth.constants';
 import { AppUserEntity } from '../app-user/app-user.entity';
 import { ConfigService } from '@nestjs/config';
 import { AppUserRepository } from '../app-user/app-user.repository';
@@ -42,6 +46,7 @@ export class AuthService {
       name,
       email,
       passwordHash: '',
+      rating: 0,
       city,
       birthDate: dayjs(birthDate).toDate(),
       role: UserRole[role],
@@ -182,11 +187,11 @@ export class AuthService {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(payload, {
         secret: this.configService.get<string>('jwt.accessTokenSecret'),
-        expiresIn: '15m',
+        expiresIn: JWTokenTime.ACCESS_TOKEN_TIME,
       }),
       this.jwtService.signAsync(payload, {
         secret: this.configService.get<string>('jwt.refreshTokenSecret'),
-        expiresIn: '7d',
+        expiresIn: JWTokenTime.REFRESH_TOKEN_TIME,
       }),
     ]);
     return {

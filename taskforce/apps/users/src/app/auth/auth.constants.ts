@@ -28,3 +28,8 @@ export enum UserErrorMessage {
   MONGOID_NOT_VALID = 'Bad user ID',
   TOO_MANY_SKILLS = 'Too many skills',
 }
+
+export enum JWTokenTime {
+  ACCESS_TOKEN_TIME = '15m',
+  REFRESH_TOKEN_TIME = '7d',
+}

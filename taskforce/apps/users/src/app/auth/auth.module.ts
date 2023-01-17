@@ -10,8 +10,8 @@ import {
 } from '../validators';
 import { AccessTokenStrategy, RefreshTokenStrategy } from './strategies';
 import { PassportModule } from '@nestjs/passport';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { getJwtConfig, getRabbitMqConfig } from '../../config';
+import { ConfigService } from '@nestjs/config';
+import { getRabbitMqConfig } from '../../config';
 import { ClientsModule } from '@nestjs/microservices';
 import { RABBITMQ_SERVICE } from './auth.constants';
 
@@ -19,11 +19,7 @@ import { RABBITMQ_SERVICE } from './auth.constants';
   imports: [
     AppUserModule,
     PassportModule,
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: getJwtConfig,
-    }),
+    JwtModule.register({}),
     ClientsModule.registerAsync([
       {
         name: RABBITMQ_SERVICE,
