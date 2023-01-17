@@ -22,4 +22,5 @@ export interface Task {
   status?: TaskStatus;
   replies?: Reply[];
   files?: TaskFile[];
+  city: string;
 }

@@ -1,5 +1,1 @@
-export enum City {
-  Moscow = 'Москва',
-  SaintPetersburg = 'Санкт-Петербург',
-  Vladivostok = 'Владивосток',
-}
+export type City = 'Москва' | 'Санкт-Петербург' | 'Владивосток';

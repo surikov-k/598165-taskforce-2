@@ -24,6 +24,7 @@ export class WorkTaskEntity implements Entity<WorkTaskEntity>, Task {
   title: string;
   replies: Reply[];
   files: TaskFile[];
+  city: string;
 
   constructor(workTask: Task) {
     this.fillEntity(workTask);
@@ -54,11 +55,37 @@ export class WorkTaskEntity implements Entity<WorkTaskEntity>, Task {
     this.title = workTask.title;
     this.replies = [...workTask.replies];
     this.files = [...workTask.files];
+    this.city = workTask.city;
   }
 
   changeStatus(status: TaskStatus) {
-    // TODO: Change the task's status strategy
     this.status = status;
-    return this;
+  }
+
+  getNextStatus(userId: string) {
+    const nextStatus = {
+      [TaskStatus.New]: {
+        [this.clientId]: TaskStatus.Ongoing,
+        [this.contractorId]: null,
+      },
+      [TaskStatus.Ongoing]: {
+        [this.clientId]: TaskStatus.Done,
+        [this.contractorId]: TaskStatus.Failed,
+      },
+      [TaskStatus.Canceled]: {
+        [this.clientId]: null,
+        [this.contractorId]: null,
+      },
+      [TaskStatus.Done]: {
+        [this.clientId]: null,
+        [this.contractorId]: null,
+      },
+      [TaskStatus.Failed]: {
+        [this.clientId]: null,
+        [this.contractorId]: null,
+      },
+    };
+
+    return nextStatus[this.status][userId];
   }
 }

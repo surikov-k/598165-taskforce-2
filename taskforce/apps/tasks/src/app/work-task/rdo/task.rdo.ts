@@ -12,6 +12,13 @@ export class TaskRdo {
   address: string;
 
   @ApiProperty({
+    description: 'The city in which the task should be done',
+    example: 'Владивосток',
+  })
+  @Expose()
+  city: string;
+
+  @ApiProperty({
     description: 'A budget of the task',
     example: '100',
   })

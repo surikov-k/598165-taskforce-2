@@ -32,6 +32,11 @@ export enum TaskErrorMessages {
   TOO_MANY_TAGS = 'Too many tags',
   SKILL_EXISTS = 'Some skill doesnt exist',
   TAG_INVALID = 'Some tag is not valid',
+  WRONG_STATUS = 'Task status has to be New, Canceled, Ongoing or Done',
+  TASK_DOESNT_EXIST = 'Task doesnt exist',
+  ILLEGAL_ACTION = 'Illegal action to change task status',
+  WRONG_CONTRACTOR = "Contractor didn't left a reply to the task",
+  BUSY_CONTRACTOR = 'Contractor has ongoing tasks',
 }
 
 export const RABBITMQ_SERVICE = 'RABBITMQ_SERVICE';

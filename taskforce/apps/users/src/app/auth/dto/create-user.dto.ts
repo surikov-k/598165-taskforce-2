@@ -3,6 +3,7 @@ import { City, UserRole } from '@task-force/shared-types';
 import {
   IsEmail,
   IsEnum,
+  IsIn,
   IsISO8601,
   IsString,
   MaxLength,
@@ -51,9 +52,7 @@ export class CreateUserDto {
   public password: string;
 
   @ApiProperty({ description: 'User city', example: 'Москва' })
-  @IsEnum(City, {
-    message: UserErrorMessage.CITY_NOT_VALID,
-  })
+  @IsIn(['Москва', 'Санкт-Петербург', 'Владивосток'])
   public city: City;
 
   @ApiProperty({ description: 'User birth date', example: '1990-02-22' })

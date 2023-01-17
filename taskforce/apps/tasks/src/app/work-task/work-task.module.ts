@@ -11,6 +11,13 @@ import { RABBITMQ_SERVICE } from './work-taks.constants';
 import { getRabbitMqConfig } from '../../../config';
 import { ConfigService } from '@nestjs/config';
 import { TaskFileModule } from '../task-file/task-file.module';
+import { JwtModule } from '@nestjs/jwt';
+import {
+  AccessTokenStrategy,
+  ClientStrategy,
+  ContractorStrategy,
+} from './strategies';
+import { ContractorReviewModule } from '../contractor-review/contractor-review.module';
 
 @Module({
   imports: [
@@ -18,6 +25,8 @@ import { TaskFileModule } from '../task-file/task-file.module';
     TaskSkillModule,
     TaskTagModule,
     TaskFileModule,
+    ContractorReviewModule,
+    JwtModule.register({}),
     ClientsModule.registerAsync([
       {
         name: RABBITMQ_SERVICE,
@@ -27,7 +36,14 @@ import { TaskFileModule } from '../task-file/task-file.module';
     ]),
   ],
   controllers: [WorkTaskController],
-  providers: [WorkTaskService, WorkTaskRepository, DoesSkillExistConstraint],
+  providers: [
+    WorkTaskService,
+    WorkTaskRepository,
+    DoesSkillExistConstraint,
+    AccessTokenStrategy,
+    ClientStrategy,
+    ContractorStrategy,
+  ],
   exports: [WorkTaskRepository],
 })
 export class WorkTaskModule {}

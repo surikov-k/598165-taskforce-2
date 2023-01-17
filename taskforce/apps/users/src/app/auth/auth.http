@@ -3,19 +3,37 @@ POST http://localhost:3335/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Bryan Dare",
-  "email": "edmond2.meyer@example.com",
+  "name": "Geraldine Romaguera",
+  "email": "kerri.dudley@example.com",
   "password": "123456",
   "city": "Москва",
   "birthDate": "2000-05-05",
-  "role": "Contractor"
+  "role": "Client"
 }
 
 ### Get a user by Id
 GET http://localhost:3335/api/auth/63b14f0d7fbac2d53ecee035 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2I2ODNhYzA3ODUwNTEwZTU2MjNkNWMiLCJlbWFpbCI6Imp1bGVzLmNhbGR3ZWxsQGV4YW1wbGUuY29tIiwibmFtZSI6Ikp1ZGUgQ2Fzc2luIiwiaWF0IjoxNjcyOTE2NTE5LCJleHAiOjE2NzI5MTc0MTl9.zJ4FA2rAxOUkoQMotDBIHum_B9pwPhqsCKMn7zovwFc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2MzMDNhZjdhMzM4NWJkNzEzNDJlZDYiLCJlbWFpbCI6ImVkbW9uZC5tZXllckBleGFtcGxlLmNvbSIsIm5hbWUiOiJCcnlhbiBEYXJlIiwicm9sZSI6IkNvbnRyYWN0b3IiLCJpYXQiOjE2NzM4NzE4NDMsImV4cCI6MTY3Mzg3Mjc0M30.hh-5ZLWWgWksutFE5omoZCxdnUww8EeSe2lGmZ_leag
 
-### Login a user with email and password
+### Login a user with email and password (Client)
+POST http://localhost:3335/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "kerri.dudley@example.com",
+  "password": "123456"
+}
+
+### Login a user with email and password (Contractor)
+POST http://localhost:3335/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "edmond.meyer@example.com",
+  "password": "123456"
+}
+
+### Login a user with email and password (Another Contractor)
 POST http://localhost:3335/api/auth/login HTTP/1.1
 Content-Type: application/json
 

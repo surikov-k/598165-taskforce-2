@@ -148,6 +148,15 @@ export class AuthService {
     return this.appUserRepository.update(userId, new AppUserEntity(dto));
   }
 
+  public async updateRating(contractorId, newContractorRating) {
+    const user = await this.appUserRepository.findById(contractorId);
+    const dto = {
+      ...user,
+      rating: newContractorRating,
+    };
+    return this.appUserRepository.update(contractorId, new AppUserEntity(dto));
+  }
+
   async refreshTokens(userId: string, refreshToken: string) {
     const user = await this.appUserRepository.findById(userId);
     const userEntity = new AppUserEntity(user);
@@ -191,6 +200,7 @@ export class AuthService {
       sub: user._id.toString(),
       email: user.email,
       name: user.name,
+      role: user.role,
     };
   }
 }

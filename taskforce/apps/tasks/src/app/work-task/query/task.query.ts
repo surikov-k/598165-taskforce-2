@@ -1,4 +1,11 @@
-import { IsArray, IsEnum, IsNumber, IsOptional } from 'class-validator';
+import {
+  IsArray,
+  IsEnum,
+  IsIn,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
 import { DEFAULT_TASK_COUNT_LIMIT } from '../../app.constants';
 import { TaskSorting } from '../work-taks.constants';
@@ -20,6 +27,11 @@ export class TaskQuery {
   @IsArray()
   @IsOptional()
   public tags?: number[];
+
+  @IsString()
+  @IsOptional()
+  @IsIn(['Москва', 'Санкт-Петербург', 'Владивосток'])
+  city: string;
 
   @IsEnum(TaskSorting)
   @IsOptional()

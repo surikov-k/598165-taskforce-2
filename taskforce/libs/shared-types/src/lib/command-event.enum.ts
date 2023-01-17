@@ -4,4 +4,5 @@ export enum CommandEvent {
   QueueNewTasks = 'queueNewTasks',
   SaveAvatar = 'saveAvatar',
   SaveTaskFile = 'saveTaskFile',
+  UpdateUserRating = 'updateUserRating',
 }

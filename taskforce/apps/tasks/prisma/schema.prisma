@@ -35,6 +35,7 @@ model Task {
   status       TaskStatus @default(New)
   replies      Reply[]
   files        File[]
+  city         String
 }
 
 model Skill {
