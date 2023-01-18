@@ -1,13 +1,17 @@
-export const TASK_DOESNT_EXISTS = "The task with this ID doesn't exist";
+export enum TitleLength {
+  MIN = 20,
+  MAX = 50,
+}
 
-export const MIN_TITLE_LENGTH = 20;
-export const MAX_TITLE_LENGTH = 50;
+export enum DescriptionLength {
+  MIN = 100,
+  MAX = 1024,
+}
 
-export const MIN_DESCRIPTION_LENGTH = 100;
-export const MAX_DESCRIPTION_LENGTH = 1024;
-
-export const MIN_ADDRESS_LENGTH = 10;
-export const MAX_ADDRESS_LENGTH = 255;
+export enum AddressLength {
+  MIN = 10,
+  MAX = 255,
+}
 
 export const MAX_TAGS_NUMBER = 5;
 
@@ -37,6 +41,7 @@ export enum TaskErrorMessages {
   ILLEGAL_ACTION = 'Illegal action to change task status',
   WRONG_CONTRACTOR = "Contractor didn't left a reply to the task",
   BUSY_CONTRACTOR = 'Contractor has ongoing tasks',
+  NOT_TASK_CLIENT = 'Access denied. Not the task owner',
 }
 
 export const RABBITMQ_SERVICE = 'RABBITMQ_SERVICE';

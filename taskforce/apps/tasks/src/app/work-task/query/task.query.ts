@@ -7,16 +7,16 @@ import {
   IsString,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { DEFAULT_TASK_COUNT_LIMIT } from '../../app.constants';
+import { TaskDefault } from '../../app.constants';
 import { TaskSorting } from '../work-taks.constants';
 
 export class TaskQuery {
   @Transform(({ value }) =>
-    Math.min(+value || DEFAULT_TASK_COUNT_LIMIT, DEFAULT_TASK_COUNT_LIMIT)
+    Math.min(+value || TaskDefault.COUNT_LIMIT, TaskDefault.COUNT_LIMIT)
   )
   @IsNumber()
   @IsOptional()
-  public limit = DEFAULT_TASK_COUNT_LIMIT;
+  public limit = TaskDefault.COUNT_LIMIT;
 
   @Transform(({ value }) => value.split(',').map((skillId) => +skillId))
   @IsArray()

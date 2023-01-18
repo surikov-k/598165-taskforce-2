@@ -79,7 +79,7 @@ export class WorkTaskController {
   @ApiResponse({
     type: [TaskRdo],
     status: HttpStatus.OK,
-    description: 'The list of users tasks',
+    description: 'The list of the user tasks',
   })
   public async indexMy(
     @GetCurrentUserId() userId: string,

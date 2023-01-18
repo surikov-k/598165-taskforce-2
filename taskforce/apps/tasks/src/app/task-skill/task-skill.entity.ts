@@ -11,11 +11,10 @@ export class TaskSkillEntity implements Entity<TaskSkillEntity>, Skill {
 
   fillEntity(entity: Skill) {
     this.name = entity.name;
-    this.id = entity.id
+    this.id = entity.id;
   }
 
   toObject(): TaskSkillEntity {
-    return {...this};
+    return { ...this };
   }
-
 }

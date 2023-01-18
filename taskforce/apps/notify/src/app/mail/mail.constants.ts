@@ -1,2 +1,4 @@
-export const ADD_SUBSCRIBER_SUBJECT = 'Welcome to TaskForce!';
-export const MEW_TASKS_SUBJECT = 'New tasks on TaskForce!';
+export enum MailSubject {
+  ADD_SUBSCRIBER = 'Welcome to TaskForce!',
+  NEW_TASKS = 'New tasks on TaskForce!',
+}

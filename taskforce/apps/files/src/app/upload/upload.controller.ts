@@ -19,11 +19,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Express, Request } from 'express';
 import { AccessTokenGuard } from '../../../guards/access-token.guard';
 import { diskStorage } from 'multer';
-import {
-  ALLOWED_FILE_TYPES,
-  MAX_FILE_SIZE,
-  UPLOAD_DIRECTORY,
-} from './upload.constants';
+import { UploadError, UploadFile } from './upload.constants';
 import { createReadStream } from 'fs';
 import * as path from 'path';
 import { CheckMongoId } from './pipes';
@@ -32,8 +28,8 @@ import { CheckMongoId } from './pipes';
 export class UploadController {
   private static parseFilePipeOptions = {
     validators: [
-      new FileTypeValidator({ fileType: ALLOWED_FILE_TYPES }),
-      new MaxFileSizeValidator({ maxSize: MAX_FILE_SIZE }),
+      new FileTypeValidator({ fileType: UploadFile.ALLOWED_TYPE }),
+      new MaxFileSizeValidator({ maxSize: UploadFile.MAX_SIZE }),
     ],
   };
 
@@ -46,7 +42,7 @@ export class UploadController {
 
   private static fileInterceptorOptions = {
     storage: diskStorage({
-      destination: UPLOAD_DIRECTORY,
+      destination: UploadFile.DIRECTORY,
       filename: UploadController.generateUploadFileName,
     }),
   };
@@ -82,7 +78,7 @@ export class UploadController {
     @Req() req: Request
   ) {
     if (userId !== req.user['sub']) {
-      throw new BadRequestException('Wrong User');
+      throw new BadRequestException(UploadError.WRONG_USER);
     }
     return this.uploadService.saveAvatarFile({ userId, filename });
   }
@@ -91,7 +87,7 @@ export class UploadController {
   @Header('Content-Type', 'Binary')
   getFile(@Param('filename') filename: string) {
     const file = createReadStream(
-      path.join(process.cwd(), `${UPLOAD_DIRECTORY}/${filename}`)
+      path.join(process.cwd(), `${UploadFile.DIRECTORY}/${filename}`)
     );
     return new StreamableFile(file);
   }

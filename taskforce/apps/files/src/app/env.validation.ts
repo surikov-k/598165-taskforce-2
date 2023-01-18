@@ -2,8 +2,10 @@ import { plainToInstance } from 'class-transformer';
 import { IsNumber, IsString, Max, Min, validateSync } from 'class-validator';
 import { EnvValidationMessage } from './app.constants';
 
-const MIN_PORT = 0;
-const MAX_PORT = 65535;
+enum Port {
+  MIN = 0,
+  MAX = 65535,
+}
 
 class EnvironmentsConfig {
   @IsString({
@@ -22,8 +24,8 @@ class EnvironmentsConfig {
       message: EnvValidationMessage.DBPortRequired,
     }
   )
-  @Min(MIN_PORT)
-  @Max(MAX_PORT)
+  @Min(Port.MIN)
+  @Max(Port.MAX)
   public MONGO_PORT: number;
 
   @IsString({

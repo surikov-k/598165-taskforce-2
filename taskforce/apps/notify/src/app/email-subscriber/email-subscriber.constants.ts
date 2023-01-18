@@ -1,4 +1,4 @@
-export enum SubscriberVerifyErrorMessage {
+export enum SubscriberError {
   EMAIL_NOT_VALID = 'The email is not valid',
   NAME_IS_EMPTY = 'The name is empty',
   USER_ID_IS_EMPTY = 'The userId is empty',

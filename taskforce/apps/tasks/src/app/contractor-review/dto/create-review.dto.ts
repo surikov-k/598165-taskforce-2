@@ -8,11 +8,9 @@ import {
   MinLength,
 } from 'class-validator';
 import {
+  ContractorRating,
   CreateReviewError,
-  MAX_CONTRACTOR_RATING,
-  MAX_REVIEW_TEXT,
-  MIN_CONTRACTOR_RATING,
-  MIN_REVIEW_TEXT,
+  ReviewText,
 } from '../contractor-review.constants';
 import { DoesTaskExist } from '../../validators';
 
@@ -22,10 +20,10 @@ export class CreateReviewDto {
     example: '5',
   })
   @IsNumber()
-  @Min(MIN_CONTRACTOR_RATING, {
+  @Min(ContractorRating.MIN, {
     message: CreateReviewError.RATING_TOO_LOW,
   })
-  @Max(MAX_CONTRACTOR_RATING, {
+  @Max(ContractorRating.MAX, {
     message: CreateReviewError.RATING_TOO_HIGH,
   })
   rating: number;
@@ -52,10 +50,10 @@ export class CreateReviewDto {
     example:
       'Кумар сделал всё в лучшем виде. Буду обращаться к нему в будущем, если возникнет такая необходимость!',
   })
-  @MinLength(MIN_REVIEW_TEXT, {
+  @MinLength(ReviewText.MIN, {
     message: CreateReviewError.TEXT_TOO_SHORT,
   })
-  @MaxLength(MAX_REVIEW_TEXT, {
+  @MaxLength(ReviewText.MAX, {
     message: CreateReviewError.TEXT_TOO_LONG,
   })
   text: string;

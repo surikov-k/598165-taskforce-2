@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Subscriber } from '@task-force/shared-types';
-import { ADD_SUBSCRIBER_SUBJECT, MEW_TASKS_SUBJECT } from './mail.constants';
+import { MailSubject } from './mail.constants';
 
 @Injectable()
 export class MailService {
@@ -10,7 +10,7 @@ export class MailService {
   async notifyNewSubscriber(subscriber: Subscriber) {
     await this.mailerService.sendMail({
       to: subscriber.email,
-      subject: ADD_SUBSCRIBER_SUBJECT,
+      subject: MailSubject.ADD_SUBSCRIBER,
       template: './confirmation',
       context: {
         name: subscriber.name,
@@ -22,7 +22,7 @@ export class MailService {
   async sendNewTasks(subscriber: Subscriber, tasks) {
     await this.mailerService.sendMail({
       to: subscriber.email,
-      subject: MEW_TASKS_SUBJECT,
+      subject: MailSubject.NEW_TASKS,
       template: './new-tasks',
       context: {
         name: subscriber.name,

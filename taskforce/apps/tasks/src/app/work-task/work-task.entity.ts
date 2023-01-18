@@ -61,31 +61,4 @@ export class WorkTaskEntity implements Entity<WorkTaskEntity>, Task {
   changeStatus(status: TaskStatus) {
     this.status = status;
   }
-
-  getNextStatus(userId: string) {
-    const nextStatus = {
-      [TaskStatus.New]: {
-        [this.clientId]: TaskStatus.Ongoing,
-        [this.contractorId]: null,
-      },
-      [TaskStatus.Ongoing]: {
-        [this.clientId]: TaskStatus.Done,
-        [this.contractorId]: TaskStatus.Failed,
-      },
-      [TaskStatus.Canceled]: {
-        [this.clientId]: null,
-        [this.contractorId]: null,
-      },
-      [TaskStatus.Done]: {
-        [this.clientId]: null,
-        [this.contractorId]: null,
-      },
-      [TaskStatus.Failed]: {
-        [this.clientId]: null,
-        [this.contractorId]: null,
-      },
-    };
-
-    return nextStatus[this.status][userId];
-  }
 }

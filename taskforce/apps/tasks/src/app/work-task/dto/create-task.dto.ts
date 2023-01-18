@@ -13,14 +13,11 @@ import {
   MinLength,
 } from 'class-validator';
 import {
-  MAX_ADDRESS_LENGTH,
-  MAX_DESCRIPTION_LENGTH,
+  AddressLength,
+  DescriptionLength,
   MAX_TAGS_NUMBER,
-  MAX_TITLE_LENGTH,
-  MIN_ADDRESS_LENGTH,
-  MIN_DESCRIPTION_LENGTH,
-  MIN_TITLE_LENGTH,
   TaskErrorMessages,
+  TitleLength,
 } from '../work-taks.constants';
 import { Transform } from 'class-transformer';
 import { DoesSkillExist, IsTagValid } from '../../validators';
@@ -32,10 +29,10 @@ export class CreateTaskDto {
   })
   @IsOptional()
   @IsString()
-  @MinLength(MIN_ADDRESS_LENGTH, {
+  @MinLength(AddressLength.MIN, {
     message: TaskErrorMessages.ADDRESS_TOO_SHORT,
   })
-  @MaxLength(MAX_ADDRESS_LENGTH, {
+  @MaxLength(AddressLength.MAX, {
     message: TaskErrorMessages.ADDRESS_TOO_LONG,
   })
   address: string;
@@ -62,10 +59,10 @@ export class CreateTaskDto {
     description: 'Task full description',
     example: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
   })
-  @MinLength(MIN_DESCRIPTION_LENGTH, {
+  @MinLength(DescriptionLength.MIN, {
     message: TaskErrorMessages.DESCRIPTION_TOO_SHORT,
   })
-  @MaxLength(MAX_DESCRIPTION_LENGTH, {
+  @MaxLength(DescriptionLength.MAX, {
     message: TaskErrorMessages.DESCRIPTION_TOO_LONG,
   })
   description: string;
@@ -111,10 +108,10 @@ export class CreateTaskDto {
     description: 'The title of a task',
     example: 'Убрать квартиру после вписки',
   })
-  @MinLength(MIN_TITLE_LENGTH, {
+  @MinLength(TitleLength.MIN, {
     message: TaskErrorMessages.TITLE_TOO_SHORT,
   })
-  @MaxLength(MAX_TITLE_LENGTH, {
+  @MaxLength(TitleLength.MAX, {
     message: TaskErrorMessages.TITLE_TOO_LONG,
   })
   title: string;

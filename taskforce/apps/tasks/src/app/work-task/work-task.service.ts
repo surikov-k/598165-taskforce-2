@@ -79,7 +79,7 @@ export class WorkTaskService {
   public async delete(taskId: number, userId: string) {
     const task = await this.workTaskRepository.findById(taskId);
     if (task.clientId !== userId) {
-      throw new UnauthorizedException('Access denied. Not the task owner');
+      throw new UnauthorizedException(TaskErrorMessages.NOT_TASK_CLIENT);
     }
     for (const reply of task.replies) {
       await this.taskReplyRepository.destroy(reply.id);
@@ -92,7 +92,7 @@ export class WorkTaskService {
     const task = await this.workTaskRepository.findById(taskId);
 
     if (task.clientId !== userId) {
-      throw new UnauthorizedException('Access denied. Not is the task owner');
+      throw new UnauthorizedException(TaskErrorMessages.NOT_TASK_CLIENT);
     }
     let { skills, tags } = task;
 

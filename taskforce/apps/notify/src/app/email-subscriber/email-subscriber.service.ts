@@ -3,7 +3,7 @@ import { CreateSubscriberDto } from './dto/create-subscriber.dto';
 import { EmailSubscriberRepository } from './email-subscriber.repository';
 import {
   RABBITMQ_SERVICE,
-  SubscriberVerifyErrorMessage,
+  SubscriberError,
 } from './email-subscriber.constants';
 import { EmailSubscriberEntity } from './email-subscriber.entity';
 import { MailService } from '../mail/mail.service';
@@ -25,7 +25,7 @@ export class EmailSubscriberService {
     );
 
     if (foundSubscriber) {
-      throw new Error(SubscriberVerifyErrorMessage.EMAIL_EXISTS);
+      throw new Error(SubscriberError.EMAIL_EXISTS);
     }
 
     const newSubscriber = {

@@ -1,7 +1,9 @@
 export const ENV_FILE_PATH = 'environments/.tasks.env';
 
-export const DEFAULT_TASK_COUNT_LIMIT = 25;
-export const DEFAULT_SORT_DIRECTION = 'desc';
+export enum TaskDefault {
+  COUNT_LIMIT = 25,
+  SORT_DIRECTION = 'desc',
+}
 
 export enum EnvValidationMessage {
   RMQHostRequired = 'RabbitMQ host is required',

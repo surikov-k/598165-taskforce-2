@@ -2,16 +2,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { IsString, Length } from 'class-validator';
 import { IsSkillUnique } from '../../validators';
-import { CreateSkillError, MAX_SKILL_LENGTH, MIN_SKILL_LENGTH } from '../task-skill.constants';
+import { CreateSkillError, SkillLength } from '../task-skill.constants';
 
 export class CreateSkillDto {
   @ApiProperty({
     description: 'Name of the skill',
-    example: 'Клининг'
+    example: 'Клининг',
   })
   @Transform(({ value }) => value.trim().replace(/\s+/, ' '))
   @IsString()
-  @Length(MIN_SKILL_LENGTH, MAX_SKILL_LENGTH)
+  @Length(SkillLength.MIN, SkillLength.MAX)
   @IsSkillUnique({ message: CreateSkillError.NOT_UNIQUE })
   public name: string;
 }

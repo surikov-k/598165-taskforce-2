@@ -1,16 +1,16 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { DEFAULT_TASK_COUNT_LIMIT } from '../../app.constants';
+import { TaskDefault } from '../../app.constants';
 import { TaskStatus } from '@task-force/shared-types';
 import { TaskErrorMessages } from '../work-taks.constants';
 
 export class MyTasksQuery {
   @Transform(({ value }) =>
-    Math.min(+value || DEFAULT_TASK_COUNT_LIMIT, DEFAULT_TASK_COUNT_LIMIT)
+    Math.min(+value || TaskDefault.COUNT_LIMIT, TaskDefault.COUNT_LIMIT)
   )
   @IsNumber()
   @IsOptional()
-  public limit = DEFAULT_TASK_COUNT_LIMIT;
+  public limit = TaskDefault.COUNT_LIMIT;
 
   @IsString()
   @IsOptional()
